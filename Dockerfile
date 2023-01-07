@@ -10,7 +10,9 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     make \
     build-essential \
     zlib1g-dev \
-    libpcre3-dev
+    libpcre3-dev \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
 # Download sources
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
