@@ -13,6 +13,7 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     libpcre3-dev
 
 # Download sources
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN wget -q "http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" -O nginx.tar.gz && \
     wget -q "https://github.com/openresty/headers-more-nginx-module/archive/v${HEADERS_MORE_VERSION}.tar.gz" -O more_headers.tar.gz
 
