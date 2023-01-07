@@ -12,7 +12,6 @@ RUN apt-get update && apt-get install --no-install-recommends -y \
     zlib1g-dev \
     libpcre3-dev
 
-SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 # Download sources
 RUN wget -q "http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" -O nginx.tar.gz && \
     wget -q "https://github.com/openresty/headers-more-nginx-module/archive/v${HEADERS_MORE_VERSION}.tar.gz" -O more_headers.tar.gz
@@ -24,9 +23,8 @@ RUN CONFARGS=$(nginx -V 2>&1 | sed -n -e 's/^.*arguments: //p') \
     echo
 
 WORKDIR /usr/local/nginx-${NGINX_VERSION}
-RUN export MORE_DIR="/usr/local/nginx-${NGINX_VERSION}/headers-more-nginx-module-${HEADERS_MORE_VERSION}" && \
-    export CONFARGS=$(nginx -V 2>&1 | sed -n -e 's/^.*arguments: //p') && \
-    ./configure --with-compat "${CONFARGS}" --add-dynamic-module="${MORE_DIR}" && \
+RUN MORE_DIR="/usr/local/nginx-${NGINX_VERSION}/headers-more-nginx-module-${HEADERS_MORE_VERSION}" && \
+    ./configure --with-compat ${CONFARGS} --add-dynamic-module=${MORE_DIR} && \
     make modules && make install
 
 FROM nginx:1.22.1
