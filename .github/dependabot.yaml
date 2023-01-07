@@ -10,3 +10,6 @@ updates:
     directory: "/"
     schedule:
       interval: "weekly"
+    ignore:
+      - dependency-name: "nginx"
+        versions: ["1.23.x"]
