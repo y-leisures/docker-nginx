@@ -24,6 +24,7 @@ RUN CONFARGS=$(nginx -V 2>&1 | sed -n -e 's/^.*arguments: //p') \
     echo
 
 WORKDIR /usr/local/nginx-${NGINX_VERSION}
+SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 RUN MORE_DIR="/usr/local/nginx-${NGINX_VERSION}/headers-more-nginx-module-${HEADERS_MORE_VERSION}" && \
     ./configure --with-compat ${CONFARGS} --add-dynamic-module=${MORE_DIR} && \
     make modules && make install
