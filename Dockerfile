@@ -24,7 +24,8 @@ RUN CONFARGS=$(nginx -V 2>&1 | sed -n -e 's/^.*arguments: //p') \
     echo
 
 WORKDIR /usr/local/nginx-${NGINX_VERSION}
-RUN MORE_DIR="/usr/local/nginx-${NGINX_VERSION}/headers-more-nginx-module-${HEADERS_MORE_VERSION}" && \
+RUN export MORE_DIR="/usr/local/nginx-${NGINX_VERSION}/headers-more-nginx-module-${HEADERS_MORE_VERSION}" && \
+    export CONFARGS=$(nginx -V 2>&1 | sed -n -e 's/^.*arguments: //p') && \
     ./configure --with-compat "${CONFARGS}" --add-dynamic-module="${MORE_DIR}" && \
     make modules && make install
 
