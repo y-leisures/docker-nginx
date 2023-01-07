@@ -4,7 +4,7 @@ FROM nginx:1.22.1 as builder
 ENV NGINX_VERSION 1.22.1
 ENV HEADERS_MORE_VERSION 0.33
 
-RUN apt-get update && apt-get install -y \
+RUN apt-get update && apt-get install --no-install-recommends -y \
     wget \
     gcc \
     make \
