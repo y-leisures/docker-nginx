@@ -13,8 +13,8 @@ RUN apt-get update && apt-get install -y \
     libpcre3-dev
 
 # Download sources
-RUN wget "http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" -O nginx.tar.gz && \
-    wget "https://github.com/openresty/headers-more-nginx-module/archive/v${HEADERS_MORE_VERSION}.tar.gz" -O more_headers.tar.gz
+RUN wget -q "http://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz" -O nginx.tar.gz && \
+    wget -q "https://github.com/openresty/headers-more-nginx-module/archive/v${HEADERS_MORE_VERSION}.tar.gz" -O more_headers.tar.gz
 
 # Reuse same cli arguments as the nginx:alpine image used to build
 RUN CONFARGS=$(nginx -V 2>&1 | sed -n -e 's/^.*arguments: //p') \
@@ -22,9 +22,9 @@ RUN CONFARGS=$(nginx -V 2>&1 | sed -n -e 's/^.*arguments: //p') \
     tar -xzvf "more_headers.tar.gz" -C /usr/local/nginx-${NGINX_VERSION} && \
     echo
 
+WORKDIR /usr/local/nginx-${NGINX_VERSION}
 RUN MORE_DIR="/usr/local/nginx-${NGINX_VERSION}/headers-more-nginx-module-${HEADERS_MORE_VERSION}" && \
-    cd /usr/local/nginx-${NGINX_VERSION} && \
-    ./configure --with-compat $CONFARGS --add-dynamic-module=$MORE_DIR && \
+    ./configure --with-compat ${CONFARGS} --add-dynamic-module=${MORE_DIR} && \
     make modules && make install
 
 FROM nginx:1.22.1
