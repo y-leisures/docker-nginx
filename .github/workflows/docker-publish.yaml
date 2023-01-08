@@ -75,10 +75,9 @@ jobs:
         run: |
           echo "This workflow was triggered by a tag (${{ github.ref }})"
           if [[ "${{ github.ref }}" = "refs/tags"* ]] ; then
-            export NEW_GIT_TAG=$( echo "${{ github.ref }}" | cut -d '/' -f 3 | tr -d v )
-            echo "tags=$NEW_GIT_TAG" >> $GITHUB_ENV
+            echo "tags=$( echo "${{ github.ref }}" | cut -d '/' -f 3 | tr -d v )" >> $GITHUB_ENV
           else
-            echo 'tags=$( echo "${{ github.ref }}" | cut -d "/" -f 3 )' >> $GITHUB_ENV
+            echo "tags=$( echo "${{ github.ref }}" | cut -d '/' -f 3 )" >> $GITHUB_ENV
           fi
 
       # Build and push Docker image with Buildx (don't push on PR)
