@@ -13,7 +13,8 @@ on:
   push:
     branches: ["master"]
     # Publish semver tags as releases.
-    tags: ["v*.*.*"]
+    # tags: ["v*.*.*"]
+    tags: ["*.*.*"]
   pull_request:
     branches: ["master"]
   #   paths-ignore:
