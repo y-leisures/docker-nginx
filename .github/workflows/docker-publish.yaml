@@ -74,9 +74,6 @@ jobs:
         id: processing_tag
         run: |
           echo "This workflow was triggered by a tag (${{ github.ref }})"
-          # COMMIT_HASH=$(echo "${{ steps.meta.outputs.tags }}"| tr -d v)
-          # echo "tags=${{ steps.meta.outputs.tags }}"| tr -d v) >> $GITHUB_ENV
-          # echo "tags=${{ github.ref }}"| tr -d v) >> $GITHUB_ENV
           if [[ "${{ github.ref }}" = "refs/tags"* ]] ; then
             echo "tags=${{ github.ref }}"| tr -d v) >> $GITHUB_ENV
           else
