@@ -7,11 +7,6 @@ jobs:
     runs-on: ubuntu-latest
     if: github.actor == 'dependabot[bot]'
     steps:
-#       - name: Enable Pull Request Automerge
-#         run: gh pr merge --squash --auto "${{ github.event.pull_request.html_url }}"
-#         env:
-#           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
-#           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
       - name: Dependabot metadata
         id: metadata
         uses: dependabot/fetch-metadata@v1
@@ -21,3 +16,8 @@ jobs:
         env:
           # GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - name: Enable Pull Request Automerge
+        run: gh pr merge --squash --auto "${{ github.event.pull_request.html_url }}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
